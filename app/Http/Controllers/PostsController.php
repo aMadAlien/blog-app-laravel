@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -20,5 +21,18 @@ class PostsController extends Controller
         $posts = $postsQuery->simplePaginate(9);
 
         return response()->json($posts);
+    }
+
+    public function destroy(Post $post)
+    {
+        if ($post->author_id == auth()->id()) {
+            $post->delete();
+
+            return response()->json(['message' => 'Post successfully deleted!']);
+        }
+
+        return response()->json([
+            'message' => 'It is not possible to delete the post. Please verify the user rights or permissions to perform this action.'
+        ], Response::HTTP_METHOD_NOT_ALLOWED);
     }
 }

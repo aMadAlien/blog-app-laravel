@@ -25,4 +25,5 @@ Route::prefix('auth')
 Route::controller(PostsController::class)
     ->group(function () {
         Route::get('posts', 'index');
+        Route::delete('posts/{post}', 'destroy');
     });
