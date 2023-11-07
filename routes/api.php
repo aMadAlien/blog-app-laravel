@@ -27,4 +27,5 @@ Route::controller(PostsController::class)
         Route::get('posts', 'index');
         Route::delete('posts/{post}', 'destroy');
         Route::put('posts/{post}', 'update');
+        Route::post('posts', 'store');
     });

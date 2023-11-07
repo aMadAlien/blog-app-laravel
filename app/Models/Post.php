@@ -10,7 +10,16 @@ class Post extends Model
 {
     use HasFactory;
 
-    public $timestapms = true;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'author_id',
+        'title',
+        'description'
+    ];
 
     /**
      * Get the user that owns the Post

@@ -12,7 +12,7 @@ class PostsController extends Controller
     {
         $userPosts = $request->input('user');
 
-        $postsQuery = Post::orderBy('created_at', 'ASC');
+        $postsQuery = Post::orderBy('created_at', 'DESC');
 
         if (isset($userPosts)) {
             $postsQuery->where('author_id', auth()->id());
@@ -54,5 +54,24 @@ class PostsController extends Controller
         }
 
         return response()->json(['message' => 'Post successfully updated!']);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $newPost = Post::create([
+            'author_id' => auth()->id(),
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        return response()->json([
+            'post' => $newPost,
+            'message' => 'Post successfully created!'
+        ]);
     }
 }
