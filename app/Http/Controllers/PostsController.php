@@ -35,4 +35,24 @@ class PostsController extends Controller
             'message' => 'It is not possible to delete the post. Please verify the user rights or permissions to perform this action.'
         ], Response::HTTP_METHOD_NOT_ALLOWED);
     }
+
+    public function update(Post $post, Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        try {
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post->save();
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], $e->getCode());
+        }
+
+        return response()->json(['message' => 'Post successfully updated!']);
+    }
 }

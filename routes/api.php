@@ -26,4 +26,5 @@ Route::controller(PostsController::class)
     ->group(function () {
         Route::get('posts', 'index');
         Route::delete('posts/{post}', 'destroy');
+        Route::put('posts/{post}', 'update');
     });
