@@ -74,4 +74,15 @@ class PostsController extends Controller
             'message' => 'Post successfully created!'
         ]);
     }
+
+    public function show(Post $post)
+    {
+        return response()->json([
+            'post' => array_merge(
+                $post->toArray(),
+                ['authorName' => $post->user->username]
+            ),
+            'message' => 'success'
+        ]);
+    }
 }
