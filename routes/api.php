@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,15 @@ Route::prefix('auth')
         Route::post('login', 'login');
     });
 
+
+Route::controller(PostsController::class)
+    ->group(function () {
+        Route::get('posts', 'index');
+        Route::delete('posts/{post}', 'destroy');
+        Route::put('posts/{post}', 'update');
+        Route::post('posts', 'store');
+        Route::get('posts/{post}', 'show');
+    });
 
 Route::controller(UserController::class)
     ->group(function () {
