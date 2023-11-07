@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,9 @@ Route::prefix('auth')
     ->group(function () {
         Route::post('register', 'register');
         Route::post('login', 'login');
+    });
+
+Route::controller(PostsController::class)
+    ->group(function () {
+        Route::get('posts', 'index');
     });
