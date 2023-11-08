@@ -10,6 +10,7 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
+        $numberOfPostsPerPage = 9;
         $userPosts = $request->input('user');
 
         $postsQuery = Post::orderBy('created_at', 'DESC');
@@ -18,7 +19,7 @@ class PostsController extends Controller
             $postsQuery->where('author_id', auth()->id());
         }
 
-        $posts = $postsQuery->simplePaginate(9);
+        $posts = $postsQuery->paginate($numberOfPostsPerPage);
 
         return response()->json($posts);
     }
