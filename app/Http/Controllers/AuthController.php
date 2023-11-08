@@ -44,6 +44,14 @@ class AuthController extends Controller
         return self::respondWithToken();
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
+    }
+
     public function respondWithToken()
     {
         return response()->json([
